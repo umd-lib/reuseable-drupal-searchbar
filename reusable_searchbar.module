@@ -1,0 +1,22 @@
+<?php
+
+use Drupal\block\Entity\Block;
+
+/**
+ * @file
+ * Module file for reusable searchbar module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function reusable_searchbar_theme() {
+  return [
+    'reusable_searchbar_search_block' => [
+      'variables' => [
+        'reusable_searchbar_search_form' => '',
+      ],
+    ],
+  ];
+}
+

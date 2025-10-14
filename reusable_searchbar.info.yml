@@ -1,0 +1,7 @@
+name: Digital Collections Reusuable Searchbar
+description: Provides a dropable block to be used on collection landing pages. 
+
+package: 'UMD Services'
+type: module
+
+core_version_requirement: ">=8"
