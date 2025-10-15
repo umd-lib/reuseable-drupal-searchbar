@@ -25,11 +25,14 @@ class ReusableSearchbarForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $defaults = array()) {
-    $form['#attributes']['class'][] = 'search-box-input';
-    $form['#attributes']['class'][] = 't-body-medium';
-    $form['#attributes']['class'][] = 'c-content-primary';
-    $form['#attributes']['class'][] = 'c-bg-secondary';
-
+    $form['#attributes'] = [
+      'class' => [
+        'search-box-input',
+        't-body-medium',
+        'c-content-primary',
+        'c-bg-secondary',
+      ],
+    ];
     $form['searchbar_search'] = array(
       '#type' => 'textfield',
       '#title' => !empty($defaults['search_title']) ? $defaults['search_title'] :  t('Search'),
@@ -72,7 +75,7 @@ class ReusableSearchbarForm extends FormBase {
     ];
     return $form;
   }
-
+ 
   /**
    * {@inheritdoc}
    */
@@ -103,9 +106,9 @@ class ReusableSearchbarForm extends FormBase {
     // https://new.digital-test.lib.umd.edu/scores/search?q=mozart
     if (!empty($search_facet)) {
       if (!empty($search_facet_name)) {
-        $facet_key = "f[" . $search_facet_name . "]";
+        $facet_key = $this->generateFacetKey($search_facet_name);
       } else {
-        $facet_key = "f[digital_collection]";
+        $facet_key = generateFacetKey('digital_collection');
       }
       $params[$facet_key] = $search_facet;
     }
@@ -125,5 +128,9 @@ class ReusableSearchbarForm extends FormBase {
     } 
     $response = new TrustedRedirectResponse($url->toString());
     $form_state->setResponse($response);
+  }
+
+  function generateFacetKey($search_facet_name) {
+    return "f[" . $search_facet_name . "]";
   }
 }
