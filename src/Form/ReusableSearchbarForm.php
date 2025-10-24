@@ -27,6 +27,8 @@ class ReusableSearchbarForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state, $defaults = array()) {
     $form['#attributes'] = [
       'class' => [
+        'reusable-searchbar-search-form',
+        'search-box-action-area',
         'search-box-input',
         't-body-medium',
         'c-content-primary',
@@ -38,7 +40,17 @@ class ReusableSearchbarForm extends FormBase {
       '#title' => !empty($defaults['search_title']) ? $defaults['search_title'] :  t('Search'),
       '#placeholder' => !empty($defaults['search_placeholder']) ? $defaults['search_placeholder'] : t('Search collection holdings...'),
       '#attributes' => [
-        'class' => ['search-box-input', 't-body-medium', 'c-content-primary', 'c-bg-secondary']
+        'class' => [
+          'search-box-input',
+          't-body-medium',
+          'c-content-primary',
+          'c-bg-secondary']
+      ],
+      '#label_attributes' => [
+        'class' => [
+          't-title-small',
+          't-uppercase',
+          's-stack-small',]
       ],
     );
     $form['search_results'] = array(
@@ -68,9 +80,10 @@ class ReusableSearchbarForm extends FormBase {
     $form['actions']['#type'] = 'actions';
     $form['actions']['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Search'),
+      '#value' => '',
       '#attributes' => [
-        'class' => ['search-box-submit']
+        'class' => ['search-box-submit'],
+        'aria-label' => ['Search'],
       ],
     ];
     return $form;
