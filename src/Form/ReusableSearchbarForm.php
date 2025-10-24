@@ -30,10 +30,10 @@ class ReusableSearchbarForm extends FormBase {
         'reusable-searchbar-search-form',
         'search-box-action-area',
         'search-box-input',
-        't-body-medium',
         'c-content-primary',
         'c-bg-secondary',
       ],
+      'role' => ['search'],
     ];
     $form['searchbar_search'] = array(
       '#type' => 'textfield',
