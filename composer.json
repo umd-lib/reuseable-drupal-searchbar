@@ -1,0 +1,16 @@
+{
+    "name": "umd-lib/reusable_searchbar",
+    "description": "Provides a simple, customizable searchbar that can be embedded anywhere and directed to any search.",
+    "type": "drupal-module",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "UMD Libraries"
+        }
+    ],
+    "require": {
+      },
+    "suggest": {
+    },
+    "minimum-stability": "beta"
+}
