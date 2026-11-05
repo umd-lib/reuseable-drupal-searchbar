@@ -124,7 +124,7 @@ class ReusableSearchbarForm extends FormBase {
       }
       $redir_page = $search_action;
     }
-    $search_str = $form_state->getValue(['inner_form', 'searchbar_search']);
+    $search_str = $form_state->getValue('searchbar_search');
     $search_facet = $form_state->getValue('search_facet');
     $search_facet_name = $form_state->getValue('search_facet_name');
     $params = [];
