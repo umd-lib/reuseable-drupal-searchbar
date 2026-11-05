@@ -35,50 +35,38 @@ class ReusableSearchbarForm extends FormBase {
       ],
       'role' => ['search'],
     ];
-    $form['searchbar_search'] = array(
+
+    // Wrapper that renders as <div class="inner-form">.
+    $form['inner_form'] = [
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => ['inner-form'],
+      ],
+    ];
+
+    $form['inner_form']['searchbar_search'] = [
       '#type' => 'textfield',
-      '#title' => !empty($defaults['search_title']) ? $defaults['search_title'] :  t('Search'),
+      '#title' => !empty($defaults['search_title']) ? $defaults['search_title'] : t('Search'),
       '#placeholder' => !empty($defaults['search_placeholder']) ? $defaults['search_placeholder'] : t('Search collection holdings...'),
       '#attributes' => [
         'class' => [
           'search-box-input',
           't-body-medium',
           'c-content-primary',
-          'c-bg-secondary']
+          'c-bg-secondary',
+        ],
       ],
       '#label_attributes' => [
         'class' => [
           't-title-small',
           't-uppercase',
-          's-stack-small',]
+          's-stack-small',
+        ],
       ],
-    );
-    $form['search_results'] = array(
-      '#type' => 'value',
-      '#value' => !empty($defaults['default_action']) ? $defaults['default_action'] : null,
-    );
-    $form['search_param'] = array(
-      '#type' => 'value',
-      '#value' => !empty($defaults['search_param']) ? $defaults['search_param'] : 'query',
-    );
-    $form['search_facet_name'] = array(
-      '#type' => 'value',
-      '#value' => !empty($defaults['search_facet_name']) ? $defaults['search_facet_name'] : 'collection',
-    );
-    $form['search_facet'] = array(
-      '#type' => 'value',
-      '#value' => !empty($defaults['search_facet']) ? $defaults['search_facet'] : null,
-    );
-    $form['search_custom_param_value'] = array(
-      '#type' => 'value',
-      '#value' => !empty($defaults['search_custom_param_value']) ? $defaults['search_custom_param_value'] : null,
-    );
-    $form['search_custom_param'] = array(
-      '#type' => 'value',
-      '#value' => !empty($defaults['search_custom_param']) ? $defaults['search_custom_param'] : null,
-    );
-    $form['actions']['#type'] = 'actions';
-    $form['actions']['submit'] = [
+    ];
+
+    $form['inner_form']['actions']['#type'] = 'actions';
+    $form['inner_form']['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => '',
       '#attributes' => [
@@ -86,8 +74,36 @@ class ReusableSearchbarForm extends FormBase {
         'aria-label' => ['Search'],
       ],
     ];
+
+    // Hidden value elements render no markup, so they can stay at the top level.
+    $form['search_results'] = [
+      '#type' => 'value',
+      '#value' => !empty($defaults['default_action']) ? $defaults['default_action'] : null,
+    ];
+    $form['search_param'] = [
+      '#type' => 'value',
+      '#value' => !empty($defaults['search_param']) ? $defaults['search_param'] : 'query',
+    ];
+    $form['search_facet_name'] = [
+      '#type' => 'value',
+      '#value' => !empty($defaults['search_facet_name']) ? $defaults['search_facet_name'] : 'collection',
+    ];
+    $form['search_facet'] = [
+      '#type' => 'value',
+      '#value' => !empty($defaults['search_facet']) ? $defaults['search_facet'] : null,
+    ];
+    $form['search_custom_param_value'] = [
+      '#type' => 'value',
+      '#value' => !empty($defaults['search_custom_param_value']) ? $defaults['search_custom_param_value'] : null,
+    ];
+    $form['search_custom_param'] = [
+      '#type' => 'value',
+      '#value' => !empty($defaults['search_custom_param']) ? $defaults['search_custom_param'] : null,
+    ];
+
     return $form;
   }
+
  
   /**
    * {@inheritdoc}
@@ -108,7 +124,7 @@ class ReusableSearchbarForm extends FormBase {
       }
       $redir_page = $search_action;
     }
-    $search_str = $form_state->getValue('searchbar_search');
+    $search_str = $form_state->getValue(['inner_form', 'searchbar_search']);
     $search_facet = $form_state->getValue('search_facet');
     $search_facet_name = $form_state->getValue('search_facet_name');
     $params = [];
